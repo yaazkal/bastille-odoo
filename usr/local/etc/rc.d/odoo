@@ -1,0 +1,71 @@
+#!/bin/sh
+#
+# PROVIDE: odoo
+# REQUIRE: DAEMON
+# KEYWORD: shutdown
+
+. /etc/rc.subr
+
+name="odoo"
+rcvar="odoo_enable"
+
+: ${odoo_enable:=no}
+: ${odoo_datadir:="/var/lib/${name}"}
+
+command="/usr/local/bin/python3.7 /usr/local/odoo/odoo-bin"
+command_args="-d odoo -c /usr/local/etc/odoo.conf --data-dir ${odoo_datadir}"
+pidfile="/var/run/${name}.pid"
+extra_commands="initdb"
+
+start_cmd="${name}_start"
+stop_cmd="${name}_stop"
+restart_cmd="${name}_restart"
+start_precmd="${name}_start_precmd"
+initdb_cmd="${name}_initdb"
+chown_cmd="/usr/sbin/chown"
+mkdir_cmd="/bin/mkdir"
+logfile="/var/log/${name}.log"
+
+odoo_user="odoo"
+
+odoo_start_precmd() {
+    # ensures data dir
+    if [ ! -e ${odoo_datadir} ];then
+        ${mkdir_cmd} -p ${odoo_datadir}
+        ${chown_cmd} -R ${odoo_user}:${odoo_user} ${odoo_datadir}
+    fi
+    # ensures log file
+    if [ ! -e ${logfile} ];then
+        touch ${logfile}
+        ${chown_cmd} -R ${odoo_user}:${odoo_user} ${logfile}
+    fi
+    touch ${pidfile}
+    ${chown_cmd} -R ${odoo_user}:${odoo_user} ${pidfile}
+}
+
+odoo_start() {
+    daemon -p ${pidfile} -u ${odoo_user} ${command} ${command_args}
+    echo "Odoo started"
+}
+
+odoo_stop() {
+    if [ -e ${pidfile} ];then
+        kill `cat ${pidfile}`
+        rm ${pidfile}
+        echo "Odoo stopped"
+    fi
+}
+
+odoo_restart(){
+    echo "Odoo restarting"
+    odoo_stop
+    odoo_start
+}
+
+odoo_initdb(){
+    odoo_start_precmd
+    daemon -p ${pidfile} -u ${odoo_user} ${command} ${command_args} -i base
+}
+
+load_rc_config $name
+run_rc_command "$1"
