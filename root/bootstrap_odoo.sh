@@ -5,7 +5,7 @@ prepare_user(){
 }
 
 prepare_postgresql(){
-    if [ ! -e /var/db/postgres/data12 ];then
+    if [ ! -e "/var/db/postgres/data${psql-version}" ];then
         service postgresql initdb
     fi
 }
@@ -18,7 +18,7 @@ create_pguser_and_db(){
 download_odoo(){
     if [ ! -e /usr/local/odoo ];then
         git config --global pull.rebase false
-        git clone -b 13.0 --depth 1 https://github.com/odoo/odoo.git /usr/local/odoo
+        git clone -b "${odoo-version}" --depth 1 https://github.com/odoo/odoo.git /usr/local/odoo
     fi
     git -C /usr/local/odoo pull
     chown -R odoo:odoo /usr/local/odoo

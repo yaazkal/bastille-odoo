@@ -1,11 +1,14 @@
 CONFIG set sysvshm=new
 RESTART
-PKG ca_root_nss python37 py37-pip py37-postgresql py37-lxml py37-pillow cyrus-sasl openldap-sasl-client postgresql12-server wkhtmltopdf git-lite
+ARG psql-version=14
+ARG odoo-version=15.0
+PKG git-lite python38 py38-pip py38-psycopg2  py38-lxml py38-ldap postgresql${psql-version}-server wkhtmltopdf rust
 SYSRC postgresql_enable=YES
 SYSRC odoo_enable=YES
 OVERLAY root
 OVERLAY usr
 CMD chmod +x /usr/local/etc/rc.d/odoo
 SERVICE postgresql start
+RENDER /root/bootstrap_odoo.sh
 CMD /root/bootstrap_odoo.sh
 CMD echo "Please initialize the odoo db if not yet, using \"service odoo initdb\""
