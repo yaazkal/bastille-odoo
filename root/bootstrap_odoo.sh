@@ -6,8 +6,12 @@ prepare_user(){
 
 prepare_postgresql(){
     if [ ! -e "/var/db/postgres/data${psql-version}" ];then
+	servise postgresql stop
+	sleep 3
         service postgresql initdb
     fi
+    service postgresql start
+    sleep 3
 }
 
 create_pguser_and_db(){
@@ -29,8 +33,20 @@ install_odoo_requisites(){
     C_INCLUDE_PATH=/usr/local/include pip install -r /usr/local/odoo/requirements.txt
 }
 
+initialize_odoo() {
+    if [ ! -f /root/.odoo_initialized ];then
+        service odoo stop
+	sleep 3
+        service odoo initdb
+	sleep 10
+	touch /root/.odoo_initialized
+    fi
+}
+
 prepare_user
 prepare_postgresql
 create_pguser_and_db
 download_odoo
 install_odoo_requisites
+initialize_odoo
+

@@ -8,7 +8,6 @@ SYSRC odoo_enable=YES
 OVERLAY root
 OVERLAY usr
 CMD chmod +x /usr/local/etc/rc.d/odoo
-SERVICE postgresql start
 RENDER root/bootstrap_odoo.sh
 CMD /root/bootstrap_odoo.sh
-CMD echo "Please initialize the odoo db if not yet, using \"service odoo initdb\""
+

@@ -15,6 +15,9 @@ bastille bootstrap https://github.com/yaazkal/bastille-odoo
 bastille template TARGET yaazkal/bastille-odoo
 ```
 
+After the template has been applied the first time, restart the jail.
+If you want to directly access the Odoo instance outside the host, don't forget to create an `rdr` rule in order to redirect the port.
+
 ### Arguments
 This template can receive two arguments: `odoo-version` to specify another version for Odoo and `psql-version` to specify another version for PostgreSQL.
 
