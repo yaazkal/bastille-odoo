@@ -6,7 +6,7 @@ prepare_user(){
 
 prepare_postgresql(){
     if [ ! -e "/var/db/postgres/data${psql-version}" ];then
-	servise postgresql stop
+	service postgresql stop
 	sleep 3
         service postgresql initdb
     fi
