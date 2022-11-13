@@ -26,8 +26,13 @@ download_odoo(){
     fi
     git -C /usr/local/odoo pull
     # This fix to ensure correct installation using Python 3.9
-    fetch -o /root/odoo_requirements.patch -q https://patch-diff.githubusercontent.com/raw/odoo/odoo/pull/105633.patch
-    git -C /usr/local/odoo apply /root/odoo_requirements.patch
+    # TODO: Patches for Odoo 15 and 16
+    if [ "${odoo-version}" = "14.0" ]; then
+      fetch -o /root/odoo_requirements.patch -q https://patch-diff.githubusercontent.com/raw/odoo/odoo/pull/105633.patch
+    fi
+    if [ -e /root/odoo_requirements.patch ];then
+      git -C /usr/local/odoo apply /root/odoo_requirements.patch
+    fi
     # This fix to avoid trying to install python-ldap using pip since has been already installed using pkg
     sed -i '' -e 's/python-ldap==.*/# python-ldap not needed here, install using pkg/g' /usr/local/odoo/requirements.txt
     chown -R odoo:odoo /usr/local/odoo
