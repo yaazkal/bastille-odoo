@@ -1,6 +1,6 @@
 CONFIG set sysvshm=new
 RESTART
-ARG psql-version=15
+ARG psql-version=13
 ARG odoo-version=16.0
 PKG git-lite python39 py39-pip py39-postgresql py39-lxml py39-ldap postgresql${psql-version}-server wkhtmltopdf rust
 SYSRC postgresql_enable=YES
