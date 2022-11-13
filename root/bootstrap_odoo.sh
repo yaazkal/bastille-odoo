@@ -29,7 +29,7 @@ download_odoo(){
 }
 
 install_odoo_requisites(){
-    pip install setuptools wheel phonenumbers
+    pip install wheel phonenumbers
     C_INCLUDE_PATH=/usr/local/include pip install -r /usr/local/odoo/requirements.txt
 }
 
