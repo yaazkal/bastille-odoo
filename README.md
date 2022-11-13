@@ -1,5 +1,7 @@
 # [WIP] bastille-odoo
-[Bastille](https://github.com/bastillebsd/bastille) template for running odoo in FreeBSD
+[Odoo](https://github.com/odoo/odoo) is an Open Source ERP software made in Python. The main Odoo Apps include an Open Source CRM, Website Builder, eCommerce, Warehouse Management, Project Management, Billing, Point of Sale, Human Resources, Marketing, Manufacturing, etc.
+
+This is a [Bastille](https://github.com/bastillebsd/bastille) template for running Odoo in FreeBSD
 
 By default it installs Odoo 16.0 and PostgreSQL 15. If you want another version of Odoo or PostgreSQL please see the Arguments section below.
 
