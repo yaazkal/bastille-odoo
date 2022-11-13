@@ -12,7 +12,7 @@ rcvar="odoo_enable"
 : ${odoo_enable:=no}
 : ${odoo_datadir:="/var/lib/${name}"}
 
-command="/usr/local/bin/python3.8 /usr/local/odoo/odoo-bin"
+command="/usr/local/bin/python3.9 /usr/local/odoo/odoo-bin"
 command_args="-d odoo -c /usr/local/etc/odoo.conf --data-dir ${odoo_datadir}"
 pidfile="/var/run/${name}.pid"
 extra_commands="initdb"
