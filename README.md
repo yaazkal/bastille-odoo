@@ -1,7 +1,7 @@
 # [WIP] bastille-odoo
 [Bastille](https://github.com/bastillebsd/bastille) template for running odoo in FreeBSD
 
-By default it installs Odoo 16.0 and PostgreSQL 12. If you want another version of Odoo or PostgreSQL please see the Arguments section below.
+By default it installs Odoo 16.0 and PostgreSQL 15. If you want another version of Odoo or PostgreSQL please see the Arguments section below.
 
 ## Bootstrap
 
