@@ -2,7 +2,7 @@ CONFIG set sysvshm=new
 RESTART
 ARG psql-version=13
 ARG odoo-version=16.0
-PKG git-lite python311 py311-pip py311-postgresql py311-lxml py311-ldap postgresql${psql-version}-server wkhtmltopdf rust
+PKG git-lite python311 py311-pip py311-postgresql py311-lxml py311-ldap3 postgresql${psql-version}-server wkhtmltopdf rust
 SYSRC postgresql_enable=YES
 SYSRC odoo_enable=YES
 OVERLAY root
